@@ -1,0 +1,176 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page</title>
+<style>
+  body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: rgba(0, 100, 0, 0.8); /* Dark green with transparency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-container {
+  background-color: rgba(255, 255, 255, 0.9); /* Transparent white background */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Slight box shadow */
+  text-align: center;
+  animation: fadeInDown 1s ease;
+  width: 350px; /* Increased width */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input[type="text"],
+input[type="password"],
+button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Additional styles for social media handles and profile picture */
+.social-media {
+  margin-top: 20px;
+}
+
+.social-media img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 0 5px;
+  transition: transform 0.3s ease;
+}
+
+.social-media img:hover {
+  transform: scale(1.2);
+}
+.container{
+    display: flex;
+    align-items: center;
+    gap: 4.5rem;
+    justify-content: space-between;
+}
+
+.fg{
+    color: #0056b3;
+}
+
+.messages {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.messages li {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Animation keyframes */
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Applying animation to each message */
+.messages li {
+  animation: slideIn 0.5s ease forwards;
+  animation-delay: calc(0.1s * var(--index)); /* Delay each message */
+}
+
+/* Optional: Different classes for different message tags */
+.success {
+  background-color: #28a745;
+  color: white;
+}
+
+.error {
+  background-color: #dc3545;
+  color: white;
+}
+
+.info {
+  background-color: #17a2b8;
+  color: white;
+}
+</style>
+</head>
+<body>
+<div class="login-container">
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{% if message.tags %}{{ message.tags }}{% endif %}" style="--index: {{ forloop.counter }}">
+        {{ message }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+    <div class="container">
+        <div class="check">
+            <input type="checkbox" name="" id="" required>
+            Remember me
+     </div>
+     <a href="{% url 'register' %}" class="fg">sign up</a>
+    </div>
+  </form>
+  <!-- Social media handles and profile picture -->
+  <div class="social-media">
+    <img src="{% static 'images/facebook.jfif' %}" alt="Facebook">
+    <img src="{% static 'images/twitter.jfif' %}" alt="Twitter">
+    <img src="{% static 'images/instagram.jfif' %}" alt="Instagram">
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TAC Code Verification</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    margin: 0;
+    background: rgba(0, 100, 0, 0.8);
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 3px 3px 5px 3px black;
+    border-radius:5px;
+    text-align: center;
+    margin-bottom: 20px; /* Space from bottom */
+    background-color:rgba(0, 100, 0, 0.8); /* Optional: add a background color */
+    padding: 20px;
+}
+
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.info-text {
+    text-align: center;
+    color: red;
+    margin-top: 20px;
+    animation: fade-in 1s ease-in-out;
+}
+
+.info-text p {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #fff; /* Set text color */
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.otp-input {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* Added space between OTP inputs and button */
+}
+
+input[type="text"] {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 24px;
+    margin: 0 5px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: #fff; /* Optional: add a background color */
+    color: #000; /* Optional: add a text color */
+}
+
+input[type="text"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.verify {
+    padding: 1rem;
+    margin: 2rem;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+    background-color: orange;
+    box-shadow: 1px 1px 1px #000;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.verify:hover {
+    background-color: #ff8c00; /* Darker shade on hover */
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>TAC Code Verification</h1>
+    <div class="info-text">
+        <p>TAC code is required for withdrawal completion.</p>
+        <p>After entering the TAC code, no further codes will be provided.</p>
+        <p>Contact support to get the code and complete withdrawal.</p>
+    </div>
+    <div class="otp-input">
+        <input type="text" maxlength="1" id="digit1" onkeyup="moveToNext(this, 'digit2')">
+        <input type="text" maxlength="1" id="digit2" onkeyup="moveToNext(this, 'digit3')">
+        <input type="text" maxlength="1" id="digit3" onkeyup="moveToNext(this, 'digit4')">
+        <input type="text" maxlength="1" id="digit4" onkeyup="moveToNext(this, null)">
+    </div>
+    <button class="verify" onclick="verifyOTP()">Verify</button>
+</div>
+<script>
+function moveToNext(current, nextFieldID) {
+    if (current.value.length >= current.maxLength && nextFieldID) {
+        document.getElementById(nextFieldID).focus();
+    }
+}
+
+function verifyOTP() {
+    var otpEntered = document.getElementById('digit1').value +
+                     document.getElementById('digit2').value +
+                     document.getElementById('digit3').value +
+                     document.getElementById('digit4').value;
+    var correctOTP = "3637"; // Replace with your specific 4-digit OTP code
+
+    var Aml = "{% url 'pending' %}";
+
+    if (otpEntered === correctOTP) {
+        // Redirect to a blank page after 1 second
+        setTimeout(function() {
+            window.location.href = Aml;
+        }, 1000);
+    } else {
+        alert("Incorrect OTP. Please try again.");
+        // Clear input fields
+        document.getElementById('digit1').value = '';
+        document.getElementById('digit2').value = '';
+        document.getElementById('digit3').value = '';
+        document.getElementById('digit4').value = '';
+        document.getElementById('digit1').focus();
+    }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Pending</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        nav {
+            width: 100%;
+            background-color: #28a745;
+            padding: 1em;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: flex-start;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1em;
+            font-size: 1.2em;
+        }
+        .container {
+            text-align: center;
+            margin-top: 100px;
+            background: white;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .spinner {
+            margin: 0 auto;
+            width: 100px; /* Increased width */
+            height: 100px; /* Increased height */
+            border: 6px solid rgba(0, 0, 0, .1); /* Adjusted border thickness */
+            border-radius: 50%;
+            border-top-color: #28a745;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #333;
+        }
+        .contact-support {
+            margin-top: 40px;
+            font-size: 1.2em;
+            color: #555;
+        }
+        .contact-support p {margin: 10px 0;
+        }
+        .contact-support a {
+            color: #28a745;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'dashboard' %}">Home</a>
+    </nav>
+    <div class="container">
+        <div class="spinner"></div>
+        <div class="message">Transaction Pending...</div>
+        <div class="contact-support">
+            <h2>Contact Support</h2>
+            <p>If you have any questions or need assistance, please reach out to our support team:</p>
+            <p>Email: <a href="mailto:Ecwpress1@gmail.com">Ecwpress1@gmail.com </a></p>
+            <p></a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,303 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-finnance Bank - Profile Edit</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgba(0, 100, 0, 0.8); /* Dark green with transparency */
+        }
+
+        .premier-bank-header {
+            background-color: transparent;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .premier-bank-header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .registration-container {
+            width: 50%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .registration-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #003366;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #003366;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group select {
+            width: 96%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group input:focus {
+            border-color: #003366;
+            outline: none;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.875em;
+        }
+
+        .form-group .success {
+            color: green;
+            font-size: 0.875em;
+        }
+
+        .form-group input[type="submit"] {
+            background-color: #003366;
+            color: white;
+            border: none;
+            width: 97%;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .form-group input[type="submit"]:hover {
+            background-color: #0055cc;
+        }
+
+        .fm{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .bottom-navbar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #003366;
+            display: flex;
+            justify-content: space-around;
+            padding: 0.5rem 0;
+        }
+
+        .nav-item {
+            color: white;
+            text-align: center;
+        }
+
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+        }
+
+        .nav-item a:hover {
+            background-color: orange;
+            border-radius: 5px;
+        }
+        .login-footer {
+        margin-top: 20px;
+        color: #777;
+    }
+    .login-footer a {
+        color: #2994ff;
+        text-decoration: none;
+    }
+    .login-footer a:hover {
+        text-decoration: underline;
+    }
+    .translate-icon-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+.translate-icon {
+    width: 40px;
+    height: 40px;
+    background-image: url('path_to_google_translate_icon.png');
+    background-size: cover;
+    cursor: pointer;
+}
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}
+
+@media (max-width: 767px) {
+    .fm{
+        flex-direction: column;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Premier Bank Header -->
+    <header class="premier-bank-header">
+        <h1>E-finannce Hub - Registration</h1>
+    </header>
+
+    <!-- Registration Form Container -->
+    <div class="registration-container">
+        <h2>Create Your Profile</h2>
+        <form id="registrationForm" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+ <div class="fm">
+    <div>
+        <div class="form-group">
+            <label for="username">First name</label>
+            {{form.first_name}}
+            <span class="error">{{ form.first_name.errors }}</span>
+        </div>
+        <div class="form-group">
+            <label for="password">Middle name</label>
+            {{form.middle_name}}
+            <span class="error">{{ form.middle_name.errors }}</span>
+        </div>
+        <div class="form-group">
+            <label for="password">Next of Kin name</label>
+            {{form.next_of_kin}}
+            <span class="error">{{ form.next_of_kin.errors }}</span>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Last name</label>
+            {{form.last_name}}
+            <span class="error">{{ form.last_name.errors }}</span>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Mobile Number</label>
+            {{form.phone_number}}
+            <span class="error">{{ form.phone_number.errors }}</span>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Email</label>
+            {{form.email}}
+            <span class="error">{{ form.email.errors }}</span>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Birthday</label>
+            {{form.date_of_birth}}
+            <span class="error">{{ form.date_of_birth.errors }}</span>
+        </div>
+       </div>
+        <div>
+            
+        <div class="form-group">
+            <label for="confirmPassword">Employment status</label>
+            {{form.status}}
+            <span class="error">{{ form.status.errors }}</span>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Country</label>
+            {{form.country}}
+            <span class="error">{{ form.country.errors }}</span>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Currency</label>
+            {{form.currency}}
+            <span class="error">{{ form.currency.errors }}</span>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Gender</label>
+            {{form.Gender}}
+            <span class="error">{{ form.Gender.errors }}</span>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Account type</label>
+            {{form.account_type}}
+            <span class="error">{{ form.account_type.errors }}</span>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Profile pic</label>
+            {{form.profile_pic}}
+            <span class="error">{{ form.profile_pic.errors }}</span>
+        </div>
+        </div>
+
+        </div>
+            <div class="form-group">
+                <input type="submit" value="Save">
+            </div>
+            <div class="login-footer">
+                <p><a href="{% url 'logout' %}">Logout</a></p>
+            </div>
+            
+            {% if form.non_field_errors %}
+            <div class="error">
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+        </form>    
+    </div>
+<!--Translation icon-->
+<div class="translate-icon-container">
+    <div id="translate-icon" class="translate-icon"><div id="google_translate_element"></div> </div>
+</div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {pageLanguage: 'en'},
+                'google_translate_element'
+            );
+        } 
+        // Get the translate icon element
+const translateIcon = document.getElementById('translate-icon');
+
+// Add bounce animation
+translateIcon.addEventListener('mouseover', () => {
+    translateIcon.style.animation = 'bounce 0.5s infinite alternate';
+});
+
+// Reset animation when mouse leaves
+translateIcon.addEventListener('mouseleave', () => {
+    translateIcon.style.animation = '';
+});
+
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register Page</title>
+<style>
+  body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: rgba(0, 100, 0, 0.8); /* Dark green with transparency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-container {
+  background-color: rgba(255, 255, 255, 0.9); /* Transparent white background */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Slight box shadow */
+  text-align: center;
+  animation: fadeInDown 1s ease;
+  width: 350px; /* Increased width */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input, button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Additional styles for social media handles and profile picture */
+.social-media {
+  margin-top: 20px;
+}
+
+.social-media img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 0 5px;
+  transition: transform 0.3s ease;
+}
+
+.social-media img:hover {
+  transform: scale(1.2);
+}
+
+.fg{
+    color: #0056b3;
+}
+
+  /* Error animation */
+  .error {
+    color: red;
+    font-weight: bold;
+    animation: shake 0.5s infinite alternate;
+  }
+
+  @keyframes shake {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(5px);
+    }
+  }
+</style>
+</head>
+<body>
+<div class="login-container">
+  <span id="confirmPasswordError" class="error">{{form.errors}}</span>
+  <h2>Register</h2>
+  <form method="post" id="registerForm">
+    {% csrf_token %}
+    {{form.username}}
+    {{form.password1}}
+    {{form.password2}}
+    <button type="submit">Register</button>
+    <div class="container">
+   If already have an account  <a href="{% url 'LoginPage' %}" class="fg"> Login</a>
+    </div>
+  </form>
+ 
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const placeholders = ['', 'Username', 'Password', 'Confirm Password'];
+    const formInputs = document.querySelectorAll('#registerForm input');
+
+    formInputs.forEach(function(input, index) {
+        input.placeholder = placeholders[index];
+    });
+});
+
+</script>
+</body>
+</html>
