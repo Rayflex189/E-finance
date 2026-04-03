@@ -7,13 +7,23 @@ import string
 def generate_account_number():
     return ''.join(str(random.randint(0, 9)) for _ in range(11))
 
+class Transaction(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='transactions')
+    timestamp = models.DateTimeField(auto_now_add=True)
+    description = models.TextField(default="No description")
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    balance_after = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.amount} - {self.user.username} - {self.timestamp}"
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50, blank=True, null=True)
     middle_name = models.CharField(max_length=50, blank=True, null=True)
     next_of_kin = models.CharField(max_length=50, blank=True, null=True)
     last_name = models.CharField(max_length=50, blank=True, null=True)
-    email = models.EmailField(unique=True, max_length=50, blank=True, null=True)  
+    email = models.EmailField(unique=True, max_length=50, blank=True, null=True)
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     COUNTRY_CHOICES = [
         ('Afghanistan', 'Afghanistan'),
@@ -443,14 +453,15 @@ class UserProfile(models.Model):
     account_number = models.CharField(max_length=11, default=generate_account_number)
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     linking_code = models.CharField(max_length=11, null=True, blank=True)
-    is_linked = models.BooleanField(default=False) 
+    is_completed = models.BooleanField(default=False)  # add this
+    is_linked = models.BooleanField(default=False)
+    is_upgraded = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if not self.account_number:
             self.account_number = generate_account_number()
         super().save(*args, **kwargs)
-    
+
 
     def __str__(self):
         return self.user.username
-        

@@ -3,145 +3,468 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-finannce Hub - Loan Application</title>
+    <title>E-Currency Hub - Loan Application</title>
+   <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/69cd13b1d746a31c382e1abc/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #1a3a6c;
+            --secondary-color: #2c5aa0;
+            --accent-color: #4a7bc8;
+            --success-color: #10b981;
+            --card-color: #fff;
+            --text-color: #333;
+            --bg-color: #f0f4f8;
+        }
+
         body {
-            background-color: #f8f9fa;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         .navbar {
-            background-color: #28a745; /* Green color for the navbar */
+            background-color: var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
+
+        .translate-icon-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .translate-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .translate-icon i {
+            color: white;
+            font-size: 22px;
+        }
+
+        .translate-icon:hover {
+            transform: translateY(-5px);
+            background-color: var(--secondary-color);
+        }
+
         .navbar-brand {
             color: #fff;
             font-size: 1.5em;
             font-weight: bold;
+            display: flex;
+            align-items: center;
         }
+
+        .navbar-brand i {
+            margin-right: 10px;
+        }
+
         .navbar-nav .nav-link {
             color: #fff;
             padding: 15px 20px;
+            transition: background-color 0.3s ease;
         }
+
         .navbar-nav .nav-link:hover {
-            background-color: #218838; /* Darker green on hover */
+            background-color: var(--secondary-color);
             border-radius: 5px;
         }
+
         .main-content {
-            padding: 20px;
-            margin-top: 60px; /* Adjust based on the height of the navbar */
+            padding: 30px 20px;
+            margin-top: 20px;
+            flex: 1;
         }
+
         .card {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
-        .form-group {
-            margin-bottom: 20px;
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: #fff;
+            border-bottom: none;
+            padding: 25px;
+            position: relative;
         }
-        .action-btn {
+
+        .card-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent-color), transparent);
+        }
+
+        .card-title {
+            color: #fff;
+            margin: 0;
+            font-weight: 600;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title i {
             margin-right: 10px;
         }
-        .loan-submit-btn {
-            margin-top: 20px;
+
+        .card-body {
+            padding: 30px;
         }
-        .profile-img{
-          width: 3rem;
-          height: 3rem;
-          border-radius: 3rem;
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-control {
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            padding: 12px 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(74, 123, 200, 0.2);
+            background-color: #fff;
+        }
+
+        .loan-submit-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 15px 30px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(26, 58, 108, 0.3);
+        }
+
+        .loan-submit-btn:hover {
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 58, 108, 0.4);
+        }
+
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            object-fit: cover;
+        }
+
+        .dropdown-menu {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .dropdown-item {
+            padding: 12px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .loan-features {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .loan-features h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-color);
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            color: var(--success-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 20px 15px;
+            }
+
+            .card-body {
+                padding: 20px;
+            }
+
+            .navbar-nav .nav-link {
+                padding: 12px 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.3em;
+            }
+
+            .card-title {
+                font-size: 1.3rem;
+            }
+
+            .loan-features {
+                padding: 20px 15px;
+            }
         }
     </style>
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-dark">
-  <a class="navbar-brand" href="#">E-finannce Hub</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'dashboard' %}">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'profile_setting' %}">Accounts</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'loans' %}">Loans</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'reset_setting' %}">Settings</a>
-      </li>
-    </ul>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="{{user_profile.profile_pic.url}}" class="profile-img" alt="Profile Picture">
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{% url 'profile_setting' %}">Profile</a>
-          <a class="dropdown-item" href="{% url 'reset_setting' %}">Settings</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-        </div>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-<div class="main-content">
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Loan Application</h5>
-            <form id="loanApplicationForm">
-                <div class="form-group">
-                    <label for="fullName">Full Name</label>
-                    <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email address" required>
-                </div>
-                <div class="form-group">
-                    <label for="phoneNumber">Phone Number</label>
-                    <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter your phone number" required>
-                </div>
-                <div class="form-group">
-                    <label for="loanAmount">Loan Amount</label>
-                    <input type="number" class="form-control" id="loanAmount" placeholder="Enter the desired loan amount" required>
-                </div>
-                <div class="form-group">
-                    <label for="loanPurpose">Loan Purpose</label>
-                    <textarea class="form-control" id="loanPurpose" placeholder="Enter the purpose of the loan" rows="3" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary loan-submit-btn">Submit Application</button>
-            </form>
+    <div class="translate-icon-container">
+        <div id="translate-icon" class="translate-icon">
+            <i class="fas fa-language"></i>
+            <div id="google_translate_element"></div>
         </div>
     </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Handle loan application form submission
-        document.getElementById('loanApplicationForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-university"></i>E-Currency Hub
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard' %}">
+                        <i class="fas fa-home mr-1"></i>Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile_setting' %}">
+                        <i class="fas fa-user mr-1"></i>Accounts
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'loans' %}">
+                        <i class="fas fa-hand-holding-usd mr-1"></i>Loans
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'reset_setting' %}">
+                        <i class="fas fa-cog mr-1"></i>Settings
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{{user_profile.profile_pic.url}}" class="profile-img" alt="Profile Picture">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'profile_setting' %}">
+                            <i class="fas fa-user-circle mr-2"></i>Profile
+                        </a>
+                        <a class="dropdown-item" href="{% url 'reset_setting' %}">
+                            <i class="fas fa-cog mr-2"></i>Settings
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'logout' %}">
+                            <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-            // Retrieve form data
-            const fullName = document.getElementById('fullName').value;
-            const email = document.getElementById('email').value;
-            const phoneNumber = document.getElementById('phoneNumber').value;
-            const loanAmount = document.getElementById('loanAmount').value;
-            const loanPurpose = document.getElementById('loanPurpose').value;
+    <div class="main-content">
+        <div class="container">
+            <!-- Loan Features -->
+            <div class="loan-features">
+                <h4><i class="fas fa-star mr-2"></i>Why Choose E-Currency Hub Loans?</h4>
+                <ul class="feature-list">
+                    <li>Competitive interest rates</li>
+                    <li>Flexible repayment terms</li>
+                    <li>Quick approval process</li>
+                    <li>No hidden fees</li>
+                    <li>Secure and transparent</li>
+                </ul>
+            </div>
 
-            // Optional: Perform validation before submission
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">
+                        <i class="fas fa-file-alt mr-2"></i>Loan Application
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form id="loanApplicationForm">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber">Phone Number</label>
+                            <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter your phone number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loanAmount">Loan Amount ({{user_profile.currency}})</label>
+                            <input type="number" class="form-control" id="loanAmount" placeholder="Enter the desired loan amount" min="100" required>
+                            <small class="form-text text-muted">Minimum loan amount: {{user_profile.currency}}100</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="loanPurpose">Loan Purpose</label>
+                            <textarea class="form-control" id="loanPurpose" placeholder="Please describe the purpose of your loan" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn loan-submit-btn">
+                            <i class="fas fa-paper-plane mr-2"></i>Submit Application
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            // Redirect to KYC page (example)
-            window.location.href = `{% url 'kyc' %}?fullName=${fullName}&email=${email}&phoneNumber=${phoneNumber}&loanAmount=${loanAmount}&loanPurpose=${encodeURIComponent(loanPurpose)}`;
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle loan application form submission
+            document.getElementById('loanApplicationForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                // Retrieve form data
+                const fullName = document.getElementById('fullName').value;
+                const email = document.getElementById('email').value;
+                const phoneNumber = document.getElementById('phoneNumber').value;
+                const loanAmount = document.getElementById('loanAmount').value;
+                const loanPurpose = document.getElementById('loanPurpose').value;
+
+                // Basic validation
+                if (!fullName || !email || !phoneNumber || !loanAmount || !loanPurpose) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+
+                if (loanAmount < 100) {
+                    alert('Minimum loan amount is {{user_profile.currency}}100.');
+                    return;
+                }
+
+                // Redirect to KYC page with form data
+                window.location.href = `{% url 'kyc' %}?fullName=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}&phoneNumber=${encodeURIComponent(phoneNumber)}&loanAmount=${encodeURIComponent(loanAmount)}&loanPurpose=${encodeURIComponent(loanPurpose)}`;
+            });
+
+            // Add input validation
+            const loanAmountInput = document.getElementById('loanAmount');
+            loanAmountInput.addEventListener('input', function() {
+                if (this.value < 100) {
+                    this.setCustomValidity('Minimum loan amount is {{user_profile.currency}}100');
+                } else {
+                    this.setCustomValidity('');
+                }
+            });
         });
-    });
-</script>
+
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {pageLanguage: 'en'},
+                'google_translate_element'
+            );
+        }
+
+        // Translate icon animation
+        const translateIcon = document.getElementById('translate-icon');
+        translateIcon.addEventListener('mouseover', () => {
+            translateIcon.style.transform = 'translateY(-5px)';
+        });
+        translateIcon.addEventListener('mouseleave', () => {
+            translateIcon.style.transform = 'translateY(0)';
+        });
+    </script>
+
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

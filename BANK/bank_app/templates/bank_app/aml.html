@@ -3,147 +3,416 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AML Code Verification</title>
+<title>E-Currency Hub - Security Verification</title>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/69cd13b1d746a31c382e1abc/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
-body {
-    font-family: Arial, sans-serif;
-    height: 100vh;
-    margin: 0;
-    background: rgba(0, 100, 0, 0.8);
-    display: flex;
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
-}
+    :root {
+        --primary-color: #1a3a6c;
+        --secondary-color: #2c5aa0;
+        --accent-color: #4a7bc8;
+        --success-color: #10b981;
+        --error-color: #ef4444;
+        --card-color: #fff;
+        --text-color: #333;
+    }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 3px 3px 5px 3px black;
-    border-radius:5px;
-    text-align: center;
-    margin-bottom: 20px; /* Space from bottom */
-    background-color:rgba(0, 100, 0, 0.8); /* Optional: add a background color */
-    padding: 20px;
-}
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        height: 150vh;
+        margin: 0;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
 
+    .translate-icon-container {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 1000;
+    }
 
-@keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+    .translate-icon {
+        width: 50px;
+        height: 50px;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
 
-.info-text {
-    text-align: center;
-    color: red;
-    margin-top: 20px;
-    animation: fade-in 1s ease-in-out;
-}
+    .translate-icon i {
+        color: white;
+        font-size: 22px;
+    }
 
-.info-text p {
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #fff; /* Set text color */
-}
+    .translate-icon:hover {
+        transform: translateY(-5px);
+        background-color: var(--secondary-color);
+    }
 
-h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #fff;
-}
+    .verification-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        border-radius: 15px;
+        text-align: center;
+        background-color: var(--card-color);
+        padding: 40px 30px;
+        max-width: 500px;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+    }
 
-.otp-input-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px; /* Added space between OTP inputs and button */
-}
+    .verification-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    }
 
-input[type="text"] {
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    font-size: 24px;
-    margin: 0 5px;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    outline: none;
-    transition: all 0.3s ease;
-    background-color: #fff; /* Optional: add a background color */
-    color: #000; /* Optional: add a text color */
-}
+    @keyframes fade-in {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 
-input[type="text"]:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
 
-.verify {
-    padding: 1rem;
-    margin: 2rem;
-    width: 100%;
-    font-weight: bold;
-    color: #fff;
-    background-color: orange;
-    box-shadow: 1px 1px 1px #000;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer; /* Change cursor to pointer on hover */
-}
+    .security-icon {
+        font-size: 60px;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+        animation: fade-in 1s ease-in-out;
+    }
 
-.verify:hover {
-    background-color: #ff8c00; /* Darker shade on hover */
-}
+    .header-content {
+        margin-bottom: 25px;
+    }
+
+    h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+        color: var(--primary-color);
+        font-weight: 700;
+    }
+
+    .subtitle {
+        font-size: 16px;
+        color: var(--secondary-color);
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    .info-text {
+        text-align: center;
+        margin: 25px 0;
+        animation: fade-in 1s ease-in-out;
+    }
+
+    .info-text p {
+        font-weight: 500;
+        margin-bottom: 15px;
+        color: var(--text-color);
+        line-height: 1.6;
+    }
+
+    .security-features {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px 0;
+        border-left: 4px solid var(--accent-color);
+    }
+
+    .security-features h3 {
+        color: var(--primary-color);
+        font-size: 18px;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .feature-list {
+        text-align: left;
+        list-style: none;
+        padding: 0;
+    }
+
+    .feature-list li {
+        padding: 8px 0;
+        padding-left: 25px;
+        position: relative;
+        color: var(--text-color);
+    }
+
+    .feature-list li:before {
+        content: "✓";
+        color: var(--success-color);
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+    }
+
+    .otp-input-container {
+        display: flex;
+        justify-content: center;
+        margin: 25px 0;
+        gap: 10px;
+    }
+
+    input[type="text"] {
+        width: 55px;
+        height: 55px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: 600;
+        border: 2px solid #e1e5e9;
+        border-radius: 8px;
+        outline: none;
+        transition: all 0.3s ease;
+        background-color: #f8f9fa;
+        color: var(--text-color);
+    }
+
+    input[type="text"]:focus {
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 3px rgba(74, 123, 200, 0.2);
+        background-color: #fff;
+        transform: translateY(-2px);
+    }
+
+    .verify {
+        padding: 15px 30px;
+        width: 100%;
+        font-weight: 600;
+        font-size: 16px;
+        color: #fff;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+        box-shadow: 0 4px 15px rgba(26, 58, 108, 0.3);
+    }
+
+    .verify:hover {
+        background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(26, 58, 108, 0.4);
+    }
+
+    .verify:active {
+        transform: translateY(0);
+    }
+
+    .error-msg {
+        color: var(--error-color);
+        font-weight: 500;
+        margin: 15px 0;
+        padding: 10px 15px;
+        background-color: #fef2f2;
+        border: 1px solid #fecaca;
+        border-radius: 6px;
+        display: none;
+        animation: shake 0.5s ease-in-out;
+    }
+
+    .support-info {
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid #e1e5e9;
+        font-size: 14px;
+        color: #6b7280;
+    }
+
+    .support-info a {
+        color: var(--secondary-color);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .support-info a:hover {
+        text-decoration: underline;
+    }
+
+    .attempts-counter {
+        font-size: 14px;
+        color: #6b7280;
+        margin-top: 10px;
+    }
+
+    @media (max-width: 480px) {
+        .verification-container {
+            padding: 30px 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+
+        input[type="text"] {
+            width: 45px;
+            height: 45px;
+            font-size: 20px;
+        }
+
+        .security-icon {
+            font-size: 50px;
+        }
+    }
 </style>
 </head>
 <body>
-<div class="container">
-    <h1>AML Code Verification</h1>
-    <div class="info-text">
-        <p>The AML code is required to proceed with withdrawal.</p>
-        <p>Kindly contact support to get the AML code.</p>
+    <!-- Translation Icon -->
+    <div class="translate-icon-container">
+        <div id="translate-icon" class="translate-icon">
+            <i class="fas fa-language"></i>
+            <div id="google_translate_element"></div>
+        </div>
     </div>
-    <div class="otp-input-container">
-        <input type="text" class="otp-input" maxlength="1" />
-        <input type="text" class="otp-input" maxlength="1" />
-        <input type="text" class="otp-input" maxlength="1" />
-        <input type="text" class="otp-input" maxlength="1" />
+
+    <div class="verification-container">
+        <!-- Security Icon -->
+        <div class="security-icon">
+            <i class="fas fa-key"></i>
+        </div>
+
+        <!-- Header Content -->
+        <div class="header-content">
+            <h1>Hard Token Verification</h1>
+            <div class="subtitle">E-Currency Hub - Secure Banking</div>
+        </div>
+
+        <!-- Information Text -->
+        <div class="info-text">
+            <p>The Hard Token code is required to proceed with withdrawal.</p>
+        </div>
+
+        <!-- Security Features -->
+        <div class="security-features">
+            <h3>About Hard Tokens</h3>
+            <ul class="feature-list">
+                <li>Physical devices issued by banks for authentication</li>
+                <li>Generate unique, time-sensitive security codes</li>
+                <li>Required for high-value transactions</li>
+                <li>Enhanced security for critical banking actions</li>
+                <li>Codes valid for short durations only</li>
+            </ul>
+        </div>
+
+        <!-- Token Code Input -->
+        <div class="otp-input-container">
+            <input type="text" class="otp-input" maxlength="1" />
+            <input type="text" class="otp-input" maxlength="1" />
+            <input type="text" class="otp-input" maxlength="1" />
+            <input type="text" class="otp-input" maxlength="1" />
+        </div>
+
+        <!-- Error Message -->
+        <p id="error-msg" class="error-msg">Incorrect Hard Token code. Please try again.</p>
+
+        <!-- Attempts Counter -->
+        <div class="attempts-counter" id="attempts-counter">
+            Attempts remaining: <span id="attempts">3</span>
+        </div>
+
+        <!-- Verify Button -->
+        <button class="verify" id="otp-button">Verify Hard Token</button>
+
+        <!-- Support Information -->
+        <div class="support-info">
+            <p>If you require a hard token, please <a href="#">contact customer support</a> to arrange payment and delivery.</p>
+        </div>
     </div>
-    <p id="error-msg" style="color: red; display: none;">Incorrect AML. Please try again.</p>
-    <button class="verify" id="otp-button">Verify</button>
-</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const otpButton = document.getElementById('otp-button');
     const otpInputs = document.querySelectorAll('.otp-input');
     const errorMsg = document.getElementById('error-msg');
+    const attemptsElement = document.getElementById('attempts');
+    let attempts = 3;
 
     otpButton.addEventListener('click', function() {
-        let otpEntered = '';
+        let tokenEntered = '';
         otpInputs.forEach(input => {
-            otpEntered += input.value;
+            tokenEntered += input.value;
         });
 
-        const correctOTP = '9656'; // Change this to your actual OTP
+        const correctToken = '9656'; // Change this to your actual hard token code
 
-        if (otpEntered === correctOTP) {
-            // Redirect to a blank page (replace 'about:blank' with your desired URL)
+        if (tokenEntered === correctToken) {
+            // Redirect to tac.html page
             window.location.href = "{% url 'tac' %}";
         } else {
-            // Display error message
+            // Display error message and reduce attempts
+            attempts--;
+            attemptsElement.textContent = attempts;
             errorMsg.style.display = 'block';
+
+            // Clear inputs and refocus first input
+            otpInputs.forEach(input => input.value = '');
+            if (otpInputs[0]) otpInputs[0].focus();
+
+            // Disable button if no attempts left
+            if (attempts <= 0) {
+                otpButton.disabled = true;
+                otpButton.textContent = 'No attempts remaining';
+                otpButton.style.background = '#9ca3af';
+                otpButton.style.cursor = 'not-allowed';
+                errorMsg.textContent = 'Maximum attempts reached. Please contact support.';
+            }
         }
     });
 
     // OTP Input Handling
     otpInputs.forEach((input, index) => {
         input.addEventListener('input', function() {
+            // Only allow numbers
+            this.value = this.value.replace(/[^0-9]/g, '');
+
             if (this.value.length === 1) {
                 if (index < otpInputs.length - 1) {
                     otpInputs[index + 1].focus();
                 }
             }
+
+            // Hide error message when user starts typing again
+            errorMsg.style.display = 'none';
         });
+
         input.addEventListener('keydown', function(event) {
             if (event.key === 'Backspace' && this.value.length === 0) {
                 if (index > 0) {
@@ -151,8 +420,44 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
+
+        // Allow pasting the entire code
+        input.addEventListener('paste', function(e) {
+            e.preventDefault();
+            const pasteData = e.clipboardData.getData('text').replace(/[^0-9]/g, '');
+            if (pasteData.length === otpInputs.length) {
+                pasteData.split('').forEach((char, idx) => {
+                    if (otpInputs[idx]) {
+                        otpInputs[idx].value = char;
+                    }
+                });
+                otpInputs[otpInputs.length - 1].focus();
+            }
+        });
     });
+
+    // Focus first input on load
+    if (otpInputs[0]) otpInputs[0].focus();
+});
+
+// Translation functionality
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+        {pageLanguage: 'en'},
+        'google_translate_element'
+    );
+}
+
+// Translate icon animation
+const translateIcon = document.getElementById('translate-icon');
+translateIcon.addEventListener('mouseover', () => {
+    translateIcon.style.transform = 'translateY(-5px)';
+});
+translateIcon.addEventListener('mouseleave', () => {
+    translateIcon.style.transform = 'translateY(0)';
 });
 </script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

@@ -1,88 +1,424 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transaction Pending</title>
+    <link rel="stylesheet" href="{% static 'css/dash.css' %}">
+    <link rel="icon" href="{% static 'images/web_logo.jpg' %}" type="image/x-icon" />
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/69cd13b1d746a31c382e1abc/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-finance-business.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Pending Transaction - E-Currency Hub</title>
     <style>
-        body {
+        :root {
+            --primary-color: #1a3a6c;
+            --secondary-color: #2c5aa0;
+            --accent-color: #4a7bc8;
+            --success-color: #10b981;
+            --card-color: #fff;
+            --text-color: #333;
+        }
+
+        /* Base styles and color scheme */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            height: 100%;
+        }
+
+        .dashboard {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            min-height: 100vh;
+            padding: 20px;
         }
-        nav {
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .loading-container {
+            background: var(--card-color);
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+            text-align: center;
+            max-width: 500px;
             width: 100%;
-            background-color: #28a745;
-            padding: 1em;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            position: fixed;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading-container::before {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
-            display: flex;
-            justify-content: flex-start;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
         }
-        nav a {
+
+        .loading-container h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-weight: 700;
+            font-size: 28px;
+        }
+
+        .bank-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .logo-text {
+            text-align: left;
+        }
+
+        .logo-primary {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary-color);
+            line-height: 1.1;
+            margin: 0;
+        }
+
+        .logo-secondary {
+            font-size: 11px;
+            color: var(--secondary-color);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+
+        .message {
+            margin-top: 25px;
+            color: var(--text-color);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .message a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .message a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        .action-buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(26, 58, 108, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 58, 108, 0.4);
             color: white;
             text-decoration: none;
-            margin: 0 1em;
-            font-size: 1.2em;
         }
-        .container {
-            text-align: center;
-            margin-top: 100px;
-            background: white;
-            padding: 2em;
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 12px 25px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        .spinner {
-            margin: 0 auto;
-            width: 100px; /* Increased width */
-            height: 100px; /* Increased height */
-            border: 6px solid rgba(0, 0, 0, .1); /* Adjusted border thickness */
-            border-radius: 50%;
-            border-top-color: #28a745;
-            animation: spin 1s ease-in-out infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .message {
-            margin-top: 20px;
-            font-size: 1.5em;
-            color: #333;
-        }
-        .contact-support {
-            margin-top: 40px;
-            font-size: 1.2em;
-            color: #555;
-        }
-        .contact-support p {margin: 10px 0;
-        }
-        .contact-support a {
-            color: #28a745;
+            font-weight: 600;
             text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Styles for the infinity preloader */
+        * {
+            border: 0;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .ip {
+            width: 256px;
+            height: 128px;
+            margin: 0 auto;
+        }
+
+        .ip__track {
+            stroke: #e1e5e9;
+            transition: stroke var(--trans-dur);
+        }
+
+        .ip__worm1,
+        .ip__worm2 {
+            animation: worm1 2s linear infinite;
+        }
+
+        .ip__worm2 {
+            animation-name: worm2;
+        }
+
+        /* Animation */
+        @keyframes worm1 {
+            from {
+                stroke-dashoffset: 0;
+            }
+            50% {
+                animation-timing-function: steps(1);
+                stroke-dashoffset: -358;
+            }
+            50.01% {
+                animation-timing-function: linear;
+                stroke-dashoffset: 358;
+            }
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes worm2 {
+            from {
+                stroke-dashoffset: 358;
+            }
+            50% {
+                stroke-dashoffset: 0;
+            }
+            to {
+                stroke-dashoffset: -358;
+            }
+        }
+
+        /* Telegram icon */
+        .telegram-icon {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #0088cc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .telegram-icon:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .telegram-icon img {
+            width: 35px;
+            height: 35px;
+        }
+
+        .status-info {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .status-info h3 {
+            color: var(--primary-color);
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .status-info p {
+            color: var(--text-color);
+            margin: 0;
+            font-size: 14px;
+        }
+
+        @media (max-width: 480px) {
+            .loading-container {
+                padding: 30px 20px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+
+            .bank-logo {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="{% url 'dashboard' %}">Home</a>
-    </nav>
-    <div class="container">
-        <div class="spinner"></div>
-        <div class="message">Transaction Pending...</div>
-        <div class="contact-support">
-            <h2>Contact Support</h2>
-            <p>If you have any questions or need assistance, please reach out to our support team:</p>
-            <p>Email: <a href="mailto:Ecwpress1@gmail.com">Ecwpress1@gmail.com </a></p>
-            <p></a></p>
+    <!-- Telegram Icon -->
+    <div class="telegram-icon" id="telegramBtn">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+    </div>
+
+    <div class="dashboard">
+        <div class="loading-container">
+            <!-- E-Currency Hub Logo -->
+            <div class="bank-logo">
+                <div class="logo-icon">
+                    <svg width="25" height="25" viewBox="0 0 25 25" style="fill: white;">
+                        <path d="M12.5 2L2 7v7c0 6 10.5 10 10.5 10S23 20 23 14V7L12.5 2zm0 18V8"/>
+                        <circle cx="12.5" cy="10" r="1.5"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <div class="logo-primary">E-Currency Hub</div>
+                    <div class="logo-secondary">SECURE BANKING</div>
+                </div>
+            </div>
+
+            <!-- Loading Animation -->
+            <main>
+                <svg class="ip" viewBox="0 0 256 128" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#1a3a6c" />
+                            <stop offset="33%" stop-color="#2c5aa0" />
+                            <stop offset="67%" stop-color="#4a7bc8" />
+                            <stop offset="100%" stop-color="#1a3a6c" />
+                        </linearGradient>
+                        <linearGradient id="grad2" x1="1" y1="0" x2="0" y2="0">
+                            <stop offset="0%" stop-color="#4a7bc8" />
+                            <stop offset="33%" stop-color="#2c5aa0" />
+                            <stop offset="67%" stop-color="#1a3a6c" />
+                            <stop offset="100%" stop-color="#4a7bc8" />
+                        </linearGradient>
+                    </defs>
+                    <g fill="none" stroke-linecap="round" stroke-width="16">
+                        <g class="ip__track" stroke="#e1e5e9">
+                            <path d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56"/>
+                            <path d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64"/>
+                        </g>
+                        <g stroke-dasharray="180 656">
+                            <path class="ip__worm1" stroke="url(#grad1)" stroke-dashoffset="0" d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56"/>
+                            <path class="ip__worm2" stroke="url(#grad2)" stroke-dashoffset="358" d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64"/>
+                        </g>
+                    </g>
+                </svg>
+            </main>
+
+            <h2>Transaction Pending</h2>
+
+            <!-- Status Information -->
+            <div class="status-info">
+                <h3>Transaction Status</h3>
+                <p>Your transaction is currently being processed and is under review for security verification.</p>
+            </div>
+
+            <div class="message">
+                <p><strong>{{request.user}}</strong>, your transaction has been placed on pending.</p>
+                <p>Please upgrade your account to ensure easy transfer of large funds or return to your dashboard.</p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="{% url 'Upgrade_Account' %}" class="btn-primary">
+                    <i class="fas fa-arrow-up mr-2"></i>Upgrade Account
+                </a>
+                <a href="{% url 'dashboard' %}" class="btn-secondary">
+                    <i class="fas fa-home mr-2"></i>Back to Dashboard
+                </a>
+            </div>
         </div>
     </div>
+
+    <script>
+        // Telegram button functionality
+        document.getElementById("telegramBtn").addEventListener("click", function() {
+            window.open("https://t.me/paymentfinancialsupport147", "_blank");
+        });
+    </script>
 </body>
 </html>

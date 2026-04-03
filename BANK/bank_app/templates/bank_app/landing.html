@@ -1,752 +1,522 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Banking</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f2f5;
-            color: #333;
-        }
-        .navbar {
-            background-color: #008000;
-            overflow: hidden;
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 250px;
-            transform: translateX(-250px);
-            transition: transform 0.3s ease-in-out;
-            z-index: 1000;
-        }
-        .navbar.open {
-            transform: translateX(0);
-        }
-        .navbar a, .navbar button {
-            display: block;
-            color: #fff;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-        .navbar a:hover, .navbar button:hover {
-            background-color: #006400;
-            color: #fff;
-        }
-        .navbar button {
-            background-color: #008000;
-            border: none;
-            cursor: pointer;
-        }
-        .menu-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background-color: #008000;
-            border: none;
-            color: white;
-            padding: 10px 15px;
-            cursor: pointer;
-            z-index: 1001;
-        }
-        .hero {
-            position: relative;
-            height: 100vh;
-            background: url('static/images/landingimg.jpg') no-repeat center center/cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            overflow: hidden;
-        }
-        .hero h1 {
-            font-size: 4em;
-            margin-bottom: 0.5em;
-            animation: fadeInDown 2s;
-        }
-        .hero p {
-            font-size: 1.5em;
-            margin-bottom: 1em;
-            animation: fadeInUp 2s;
-        }
-        .hero button {
-            background-color: #008000;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            cursor: pointer;
-            animation: fadeIn 3s;
-        }
-        .feedback {
-            text-align: center;
-        }
-        .feedback .first-feedback {
-            display: flex;
-            align-items: center;
-            padding: 1rem;
-        }
-        .feedback img{
-            width: 100px;
-            height: 100px;
-        }
-        .feedback b {
-            color: #006400;
-        }
-        .customers-expect {
-            text-align: center;
-        }
-        .customers-expect,.ks,.plus {
-            background-color: #ffffff;
-            color: #000;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            margin: 1rem;
-            padding: 1rem;
-        }
-        .ks, .plus{
-            color: #fff;
-        }
-        .customers-expect .ks {
-            display: flex;
-            justify-content: space-around;
-            font-weight: 900;
-            background-color: #006400;
-        }
-        .customers-expect .plus {
-            display: flex;
-            background-color: #006400;
-            font-weight: 900;
-            justify-content: space-around;
-        }
-        .features, .money-details, .contact-us, .social-media, .statistics, .sponsors {
-            padding: 50px 20px;
-            text-align: center;
-            background-color: white;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            margin: 20px;
-        }
-        .features h2, .money-details h2, .contact-us h2, .social-media h2, .statistics h2, .sponsors h2 {
-            margin-bottom: 40px;
-            animation: fadeIn 2s;
-        }
-        .feature, .money-detail, .contact-form, .sponsor {
-            display: flex;
-            align-items: center;
-            justify-content: center;margin-bottom: 40px;
-            animation: fadeIn 2s;
-        }
-        .feature img, .money-detail img, .contact-form img, .sponsor img {
-            max-width: 100px;
-            margin-right: 20px;
-        }
-        .feature p, .money-detail p, .contact-form p, .sponsor p {
-            max-width: 600px;
-            text-align: left;
-        }
-        .contact-form form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
-        .contact-form input, .contact-form textarea {
-            width: 80%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .contact-form input[type="submit"] {
-            background-color: #008000;
-            color: white;
-            border: none;
-            cursor: pointer;
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-        .contact-form input[type="submit"]:hover {
-            background-color: #006400;
-        }
-        .social-media {
-            padding: 20px;
-            background-color: #008000;
-            color: white;
-        }
-        .social-media a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: white;
-            display: inline-block;
-        }
-        .social-media a img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            transition: transform 0.3s;
-        }
-        .social-media a img:hover {
-            transform: scale(1.1);
-        }
-        .footer {
-            padding: 20px;
-            background-color: #333;
-            color: white;
-            text-align: center;
-        }
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        .hero, .features, .money-details, .statistics, .sponsors, .feedback, .customers-expect, .contact-us, .social-media, .footer {
-            opacity: 0;
-            animation: fadeInUp 1s ease-out forwards;
-        }
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="TemplateMo">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>E-currency Hub</title>
+ <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/69cd13b1d746a31c382e1abc/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/temp.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+<!--
+
+Finance Business TemplateMo
+
+https://templatemo.com/tm-545-finance-business
+
+-->
+  </head>
+
+  <body>
 
 
-        :root {
-  --bg: #454954;
-  --fg: #e3e4e8;
-  --fg-t: rgba(227, 228, 232, 0.5);
-  --primary1: #255ff4;
-  --primary2: #5583f6;
-  --trans-dur: 0.3s;
-}
 
-      /* Overlay style */
-      .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            font-size: calc(16px + (20 - 16) * (100vw - 320px) / (1280 - 320));
-            height: 100%;
-            background-image:  linear-gradient(135deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
-            background-color: #454954; /* Light grey with opacity */
-            backdrop-filter: blur(5px); /* Optional: Add backdrop blur for modern browsers */
-            z-index: 1000; /* Higher than content, below loader */
-            display: none; 
-            transition:  background-color var(--trans-dur), color var(--trans-dur);    
-            /* Initially hidden */
-        }
-        
-        /* Loader styles remain the same */
-        .pl {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotateX(30deg) rotateZ(45deg);
-            display: flex;
-            justify-content: center;
-            color: #fff;
-            align-items: center;
-            width: 15em;
-            height: 15em;
-            z-index: 1001; /* Ensure it's above other content */
-            opacity: 0; /* Initially hidden */
-            visibility: hidden; /* Initially hidden */
-        }
-        .pl.active {
-            opacity: 1; /* Show loader when active */
-            visibility: visible; /* Show loader when active */
-        }
-        .pl, .pl__dot {
-            border-radius: 50%;
-        }
-.pl__dot {
-  animation-name: shadow;
-  box-shadow: 0.1em 0.1em 0 0.1em black, 0.3em 0 0.3em rgba(0, 0, 0, 0.5);
-  top: calc(50% - 0.75em);
-  left: calc(50% - 0.75em);
-  width: 1.5em;
-  height: 1.5em;
-}
-.pl__dot, .pl__dot:before, .pl__dot:after {
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-  position: absolute;
-}
-.pl__dot:before, .pl__dot:after {
-  content: "";
-  display: block;
-  left: 0;
-  width: inherit;
-  transition: background-color var(--trans-dur);
-}
-.pl__dot:before {
-  animation-name: pushInOut1;
-  background-color: var(--bg);
-  border-radius: inherit;
-  box-shadow: 0.05em 0 0.1em rgba(255, 255, 255, 0.2) inset;
-  height: inherit;
-  z-index: 1;
-}
-.pl__dot:after {
-  animation-name: pushInOut2;
-  background-color: var(--primary1);
-  border-radius: 0.75em;
-  box-shadow: 0.1em 0.3em 0.2em rgba(255, 255, 255, 0.4) inset, 0 -0.4em 0.2em #2e3138 inset, 0 -1em 0.25em rgba(0, 0, 0, 0.3) inset;
-  bottom: 0;
-  clip-path: polygon(0 75%, 100% 75%, 100% 100%, 0 100%);
-  height: 3em;
-  transform: rotate(-45deg);
-  transform-origin: 50% 2.25em;
-}
-.pl__dot:nth-child(1) {
-  transform: rotate(0deg) translateX(5em) rotate(0deg);
-  z-index: 5;
-}
-.pl__dot:nth-child(1), .pl__dot:nth-child(1):before, .pl__dot:nth-child(1):after {
-  animation-delay: 0s;
-}
-.pl__dot:nth-child(2) {
-  transform: rotate(-30deg) translateX(5em) rotate(30deg);
-  z-index: 4;
-}
-.pl__dot:nth-child(2), .pl__dot:nth-child(2):before, .pl__dot:nth-child(2):after {
-  animation-delay: -0.1666666667s;
-}
-.pl__dot:nth-child(3) {
-  transform: rotate(-60deg) translateX(5em) rotate(60deg);
-  z-index: 3;
-}
-.pl__dot:nth-child(3), .pl__dot:nth-child(3):before, .pl__dot:nth-child(3):after {
-  animation-delay: -0.3333333333s;
-}
-.pl__dot:nth-child(4) {
-  transform: rotate(-90deg) translateX(5em) rotate(90deg);
-  z-index: 2;
-}
-.pl__dot:nth-child(4), .pl__dot:nth-child(4):before, .pl__dot:nth-child(4):after {
-  animation-delay: -0.5s;
-}
-.pl__dot:nth-child(5) {
-  transform: rotate(-120deg) translateX(5em) rotate(120deg);
-  z-index: 1;
-}
-.pl__dot:nth-child(5), .pl__dot:nth-child(5):before, .pl__dot:nth-child(5):after {
-  animation-delay: -0.6666666667s;
-}
-.pl__dot:nth-child(6) {
-  transform: rotate(-150deg) translateX(5em) rotate(150deg);
-  z-index: 1;
-}
-.pl__dot:nth-child(6), .pl__dot:nth-child(6):before, .pl__dot:nth-child(6):after {
-  animation-delay: -0.8333333333s;
-}
-.pl__dot:nth-child(7) {
-  transform: rotate(-180deg) translateX(5em) rotate(180deg);
-  z-index: 2;
-}
-.pl__dot:nth-child(7), .pl__dot:nth-child(7):before, .pl__dot:nth-child(7):after {
-  animation-delay: -1s;
-}
-.pl__dot:nth-child(8) {
-  transform: rotate(-210deg) translateX(5em) rotate(210deg);
-  z-index: 3;
-}
-.pl__dot:nth-child(8), .pl__dot:nth-child(8):before, .pl__dot:nth-child(8):after {
-  animation-delay: -1.1666666667s;
-}
-.pl__dot:nth-child(9) {
-  transform: rotate(-240deg) translateX(5em) rotate(240deg);
-  z-index: 4;
-}
-.pl__dot:nth-child(9), .pl__dot:nth-child(9):before, .pl__dot:nth-child(9):after {
-  animation-delay: -1.3333333333s;
-}
-.pl__dot:nth-child(10) {
-  transform: rotate(-270deg) translateX(5em) rotate(270deg);
-  z-index: 5;
-}
-.pl__dot:nth-child(10), .pl__dot:nth-child(10):before, .pl__dot:nth-child(10):after {
-  animation-delay: -1.5s;
-}
-.pl__dot:nth-child(11) {
-  transform: rotate(-300deg) translateX(5em) rotate(300deg);
-  z-index: 6;
-}
-.pl__dot:nth-child(11), .pl__dot:nth-child(11):before, .pl__dot:nth-child(11):after {
-  animation-delay: -1.6666666667s;
-}
-.pl__dot:nth-child(12) {
-  transform: rotate(-330deg) translateX(5em) rotate(330deg);
-  z-index: 6;
-}
-.pl__dot:nth-child(12), .pl__dot:nth-child(12):before, .pl__dot:nth-child(12):after {
-  animation-delay: -1.8333333333s;
-}
-.pl__text {
-  font-size: 0.75em;
-  max-width: 5rem;
-  position: relative;
-  text-shadow: 0 0 0.1em var(--fg-t);
-  transform: rotateZ(-45deg);
-}
+    <!-- Header -->
+    <div class="sub-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-xs-12">
+            <ul class="left-info">
+              <li><a href="#"><i class="fa fa-clock-o"></i>Mon-Fri 09:00-17:00</a></li>
+              <li><a href="#"><i class="fa fa-phone"></i>090-080-0760</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <ul class="right-icons">
+             <li><a href="https://www.facebook.com/yourpage" target="_blank"><i class="fa fa-facebook"></i></a></li>
+<li><a href="https://twitter.com/yourhandle" target="_blank"><i class="fa fa-twitter"></i></a></li>
+<li><a href="https://www.linkedin.com/in/yourprofile" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+<li><a href="https://www.behance.net/yourprofile" target="_blank"><i class="fa fa-behance"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
 
-/* Animations */
-@keyframes shadow {
-  from {
-    animation-timing-function: ease-in;
-    box-shadow: 0.1em 0.1em 0 0.1em black, 0.3em 0 0.3em rgba(0, 0, 0, 0.3);
-  }
-  25% {
-    animation-timing-function: ease-out;
-    box-shadow: 0.1em 0.1em 0 0.1em black, 0.8em 0 0.8em rgba(0, 0, 0, 0.5);
-  }
-  50%, to {
-    box-shadow: 0.1em 0.1em 0 0.1em black, 0.3em 0 0.3em rgba(0, 0, 0, 0.3);
-  }
-}
-@keyframes pushInOut1 {
-  from {
-    animation-timing-function: ease-in;
-    background-color: var(--bg);
-    transform: translate(0, 0);
-  }
-  25% {
-    animation-timing-function: ease-out;
-    background-color: var(--primary2);
-    transform: translate(-71%, -71%);
-  }
-  50%, to {
-    background-color: var(--bg);
-    transform: translate(0, 0);
-  }
-}
-@keyframes pushInOut2 {
-  from {
-    animation-timing-function: ease-in;
-    background-color: var(--bg);
-    clip-path: polygon(0 75%, 100% 75%, 100% 100%, 0 100%);
-  }
-  25% {
-    animation-timing-function: ease-out;
-    background-color: var(--primary1);
-    clip-path: polygon(0 25%, 100% 25%, 100% 100%, 0 100%);
-  }
-  50%, to {
-    background-color: var(--bg);
-    clip-path: polygon(0 75%, 100% 75%, 100% 100%, 0 100%);
-  }
-}
+    <header class="">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="index.html"><h2>E-currency Hub</h2></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#top">Home
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'about' %}">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'services' %}">Our Services</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'one-page' %}">One Page</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
 
-          .scroll-to-top {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background-color: #008000;
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 24px;
-            text-align: center;
-            line-height: 50px;
-            cursor: pointer;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s, visibility 0s linear 0.3s;
-            z-index: 1002;
-        }
-        .scroll-to-top.active {
-            opacity: 1;
-            visibility: visible;
-            transition: opacity 0.3s;
-        }
-        .scroll-to-top:hover {
-            background-color: #006400;
-        }
+   <!-- Page Content -->
+<!-- Banner Starts Here -->
+<div class="main-banner header-text" id="top">
+    <div class="Modern-Slider">
+        <!-- Item 1 -->
+        <div class="item item-1">
+            <div class="img-fill">
+                <div class="text-content">
+                    <h6>secure your future with us</h6>
+                    <h4>Online Banking<br>&amp; Digital Solutions</h4>
+                    <p>At e-currency Hub, we provide a seamless online banking experience tailored to your financial needs. Manage your accounts, transfer funds, and monitor transactions — all from the comfort of your home.</p>
+                    <a href="{% url 'LoginPage' %}" class="filled-button">Login</a>
+                </div>
+            </div>
+        </div>
+        <!-- // Item 1 -->
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        <!-- Item 2 -->
+        <div class="item item-2">
+            <div class="img-fill">
+                <div class="text-content">
+                    <h6>bank smarter with us</h6>
+                    <h4>Personalized<br>&amp; Business Banking</h4>
+                    <p>Whether you're managing personal finances or growing your business, e-currency Hub offers tailored banking solutions, including savings accounts, loans, and investment opportunities.</p>
+                    <a href="{% url 'register' %}" class="filled-button">Register</a>
+                </div>
+            </div>
+        </div>
+        <!-- // Item 2 -->
 
-        .content {
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
-        }
+        <!-- Item 3 -->
+        <div class="item item-3">
+            <div class="img-fill">
+                <div class="text-content">
+                    <h6>empowering your financial journey</h6>
+                    <h4>Insights &amp;<br>Secure Transactions</h4>
+                    <p>Stay informed with our real-time market insights and ensure safe and secure transactions. At e-currency Hub, your financial security is our priority.</p>
+                    <a href="{% url 'LoginPage' %}" class="filled-button">Login</a>
+                </div>
+            </div>
+        </div>
+        <!-- // Item 3 -->
+    </div>
+</div>
 
-    </style>
-    <script>
-        function toggleMenu() {
-            const navbar = document.querySelector('.navbar');
-            navbar.classList.toggle('open');
-        }
-    </script>
-</head>
-<body class="content">
-    <button class="menu-btn" onclick="toggleMenu()">☰</button>
-    <div class="navbar content">
-        <a href="/home">Home</a>
-        <a href="/about">About</a>
-        <a href="/services">Services</a>
-        <a href="/contact">Contact</a>
-        <button onclick="location.href='/login'">Login</button>
+    <!-- Banner Ends Here -->
+<div class="request-form">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h4>Need assistance with your account?</h4>
+        <span>Our dedicated team at e-currency Hub is ready to provide you with personalized banking support. Whether it’s account inquiries, loan consultations, or financial guidance, we’re here to help.</span>
+      </div>
+      <div class="col-md-4">
+        <a href="contact.html" class="border-button">Get in Touch</a>
+      </div>
     </div>
-    <div class="hero content">
-        <div>
-            <h1 style="color:#b6c8b9">Welcome to E-finance Banking Hub </h1>
-            <p>Your finances at your fingertips.</p>
-           <a href="{% url 'register' %}"> <button>Get Started</button></a>
+  </div>
+</div>
+
+ <div class="services">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-heading">
+          <h2>Our <em>Financial Services</em></h2>
+          <span>Tailored banking solutions to fit your financial needs at e-currency Hub.</span>
         </div>
+      </div>
+      <div class="col-md-4">
+        <div class="service-item">
+          <img src="{% static 'images/service_01.jpg' %}" alt="">
+          <div class="down-content">
+            <h4>Online Banking</h4>
+            <p>Manage your accounts, transfer funds, and track transactions, all from the comfort of your home with our secure online banking platform.</p>
+            <a href="online-banking.html" class="filled-button">Learn More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="service-item">
+          <img src="{% static 'images/service_02.jpg' %}" alt="">
+          <div class="down-content">
+            <h4>Personal Loans</h4>
+            <p>Whether it's for home improvement, education, or a major life event, our personalized loan options are designed to meet your needs.</p>
+            <a href="personal-loans.html" class="filled-button">Learn More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="service-item">
+          <img src="{% static 'images/service_03.jpg' %}" alt="">
+          <div class="down-content">
+            <h4>Investment Advice</h4>
+            <p>Maximize your financial growth with expert investment advice. Our advisors help you navigate the market and make informed decisions.</p>
+            <a href="investment-advice.html" class="filled-button">Learn More</a>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="features content">
-        <h2>Our Features</h2>
-        <div class="feature">
-            <img src="{% static 'images/accountmanage.png' %}" alt="Feature 1">
-            <p>Manage your accounts from anywhere in the world with our secure online banking platform. Check your balance, view transaction history, and more with ease.</p>
+  </div>
+</div>
+<div class="fun-facts">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="left-content">
+          <span>Your Trusted Banking Partner</span>
+          <h2>Empowering <em>Your Financial Success</em></h2>
+          <p>At e-currency Hub, we provide innovative solutions to help you achieve your financial goals. From seamless online transactions to personalized loan and investment options, we’re dedicated to your growth.
+          <br><br>Join thousands of satisfied customers who trust us to make their financial dreams a reality. Let's grow together!</p>
+          <a href="about.html" class="filled-button">Learn More</a>
         </div>
-        <div class="feature">
-            <img src="{% static 'images/money-transfer.png' %}" alt="Feature 2">
-            <p>Transfer funds, pay bills, and set up recurring payments quickly and easily. Our intuitive interface makes managing your money simple and straightforward.</p>
+      </div>
+            <div class="col-md-6 align-self-center">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="count-area-content">
+              <div class="count-digit">10,000+</div>
+              <div class="count-title">Happy Customers</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="count-area-content">
+              <div class="count-digit">1,500+</div>
+              <div class="count-title">Successful Loans</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="count-area-content">
+              <div class="count-digit">3,200+</div>
+              <div class="count-title">Transactions Processed</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="count-area-content">
+              <div class="count-digit">50</div>
+              <div class="count-title">Industry Awards</div>
+            </div>
+          </div>
         </div>
-        <div class="feature">
-            <img src="{% static 'images/sent.png' %}" alt="Feature 3">
-            <p>Stay informed with real-time notifications and alerts. Receive updates on your account activity, upcoming payments, and important reminders.</p>
-        </div>
+      </div>
     </div>
-    <div class="money-details content">
-        <h2>Money Management</h2>
-        <div class="money-detail">
-            <img src="{% static 'images/assets.png' %}" alt="Budgeting">
-            <p>Create and manage your budget to stay on top of your spending. Set limits, track expenses, and receive insights to help you save more effectively.</p>
+  </div>
+</div>
+
+<div class="more-info">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="more-info-content">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="left-image">
+                <img src="{% static 'images/more-info.jpg' %}" alt="About eFinance Hub">
+              </div>
+            </div>
+            <div class="col-md-6 align-self-center">
+              <div class="right-content">
+                <span>About Us</span>
+                <h2>Discover the <em>e-currency Hub Difference</em></h2>
+                <p>e-currency Hub is more than a bank; we’re your partner in financial growth. With cutting-edge online banking services, personalized loan options, and expert investment guidance, we help you achieve your financial aspirations.<br><br>Our mission is to provide secure, seamless, and innovative solutions that empower individuals and businesses to thrive in a digital-first world.</p>
+                <a href="about.html" class="filled-button">Learn More</a>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="money-detail">
-            <img src="{% static 'images/investment.png' %}" alt="Investment Tracking">
-            <p>Monitor your investments and analyze your portfolio performance. Access detailed reports and gain insights into your investment strategies.</p>
-        </div>
-        <div class="money-detail">
-            <img src="{% static 'images/expense.png' %}" alt="Spending Analysis">
-            <p>Get detailed insights into your spending patterns and habits. Our analysis tools help you understand where your money goes and how to optimize your finances.</p>
-        </div>
+      </div>
     </div>
-    <div class="statistics content">
-        <h2>Monthly Visitors</h2>
-        <div class="stat">
-            <p>Our platform receives over 500,000 visitors every month, making it a trusted choice for individuals and businesses alike.</p>
+  </div>
+</div>
+
+<div class="testimonials">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-heading">
+          <h2>What Our <em>Clients Say</em></h2>
+          <span>Real stories from satisfied customers</span>
         </div>
+      </div>
+      <div class="col-md-12">
+        <div class="owl-testimonials owl-carousel">
+
+          <div class="testimonial-item">
+            <div class="inner-content">
+              <h4>Emily Carter</h4>
+              <span>Small Business Owner</span>
+              <p>"eFinance Hub made managing my business finances so easy! Their online tools are intuitive, and the support team is always ready to assist. Highly recommended!"</p>
+            </div>
+            <img src="{% static 'images/testimonial_01.jpg' %}" alt="Testimonial from Emily Carter">
+          </div>
+
+          <div class="testimonial-item">
+            <div class="inner-content">
+              <h4>Michael Johnson</h4>
+              <span>Freelance Consultant</span>
+              <p>"The seamless online banking experience at e-currency Hub has been a game-changer for me. From quick transfers to detailed account insights, they have it all!"</p>
+            </div>
+            <img src="{% static 'images/testimonial_02.jpg' %}" alt="Testimonial from Michael Johnson">
+          </div>
+
+          <div class="testimonial-item">
+            <div class="inner-content">
+              <h4>Sophia Lee</h4>
+              <span>Investor</span>
+              <p>"I trust e-currency Hub with my investments because of their transparency and excellent advisory services. Their platform keeps me updated and secure."</p>
+            </div>
+            <img src="{% static 'images/testimonial_03.jpg' %}" alt="Testimonial from Sophia Lee">
+          </div>
+
+          <div class="testimonial-item">
+            <div class="inner-content">
+              <h4>James Anderson</h4>
+              <span>Tech Entrepreneur</span>
+              <p>"e-currency Hub has been a reliable partner in scaling my business. Their loan services are flexible and tailored to meet my specific needs. Amazing service!"</p>
+            </div>
+            <img src="{% static 'images/testimonial_04.jpg' %}" alt="Testimonial from James Anderson">
+          </div>
+
+        </div>
+      </div>
     </div>
-    <div class="sponsors content">
-        <h2>Our Sponsors</h2>
-        <div class="sponsor">
-            <img src="{% static 'images/paypal2.webp' %}" alt="Sponsor 1">
-            <p>Sponsor 1 - A leading financial institution that supports our mission to provide accessible and secure online banking services.</p>
+  </div>
+</div>
+<div class="callback-form">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-heading">
+          <h2>Request a <em>Consultation</em></h2>
+          <span>Let us assist you with your financial needs</span>
         </div>
-        <div class="sponsor">
-            <img src="{% static 'images/skrill2.png' %}" alt="Sponsor 2">
-            <p>Sponsor 2 - A renowned technology company that partners with us to deliver cutting-edge digital banking solutions.</p>
-        </div>
-        <div class="sponsor">
-            <img src="{% static 'images/western.png' %}" alt="Sponsor 3">
-            <p>Sponsor 3 - A global investment firm that collaborates with us to ensure our platform offers comprehensive financial management tools.</p>
-        </div>
-        <div class="sponsor">
-            <img src="{% static 'images/bitcoin.png' %}" alt="Sponsor 4">
-            <p>Sponsor 4 - A global investment firm that collaborates with us to ensure our platform offers comprehensive financial management tools.</p>
-        </div>
-        <div class="sponsor">
-            <img src="{% static 'images/google-pay.png' %}" alt="Sponsor 5">
-            <p>Sponsor 5 - A global investment firm that collaborates with us to ensure our platform offers comprehensive financial management tools.</p>
-        </div>
-    </div>
-    <div class="feedback content">
-        <h2>What Customers Say About Us</h2>
-        <div class="first-feedback">
-            <img src="{% static 'images/profile.png' %}" alt="">
-            <p>For more than two years I've been banking with E-finance Hub. To me, the customer service is top notch, you know - <b>Mark Smith</b></p>
-        </div>
-        <div class="first-feedback">
-            <img src="{% static 'images/profile.png' %}" alt="">
-            <p>One thing very outstanding about this bank is the loan program. For once, I paid back a loan without being under pressure - <b>Sarah Jamie</b></p>
-        </div>
-    </div>
-    <div class="customers-expect content">
-        <h2>We Always Try To Understand Customers Expectations</h2>
-        <p>Starting banking and making profit on our platform requires no professional skills. In just three easy steps, you can be a millionaire.</p>
-        <span class="ks">
-            <p>18K</p>
-            <p>20K</p>
-        </span>
-        <span class="plus">
-            <p>5000+</p>
-            <p>70+</p>
-        </span>
-    </div>
-    <div class="contact-us content">
-        <h2>Contact Us</h2>
+      </div>
+      <div class="col-md-12">
         <div class="contact-form">
-            <form action="/submit-request" method="POST">
-                <input type="email" name="email" placeholder="Your Email Address" required>
-                <textarea name="request" placeholder="Your Request" rows="5" required></textarea>
-                <input type="submit" value="Submit">
-            </form>
+          <form id="contact" action="" method="post">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-lg-4 col-md-12 col-sm-12">
+                <fieldset>
+                  <input name="name" type="text" class="form-control" id="name" placeholder="Full Name" required>
+                </fieldset>
+              </div>
+              <div class="col-lg-4 col-md-12 col-sm-12">
+                <fieldset>
+                  <input name="email" type="email" class="form-control" id="email" placeholder="E-Mail Address" required>
+                </fieldset>
+              </div>
+              <div class="col-lg-4 col-md-12 col-sm-12">
+                <fieldset>
+                  <input name="phone" type="text" class="form-control" id="phone" placeholder="Phone Number" required>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <textarea name="message" rows="6" class="form-control" id="message" placeholder="How can we assist you?" required></textarea>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <button type="submit" id="form-submit" class="filled-button">Request Callback</button>
+                </fieldset>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="partners">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-heading">
+          <h2>Our <em>Partners</em></h2>
+          <span>Trusted by leading financial institutions and organizations</span>
+        </div>
+        <div class="owl-partners owl-carousel">
+
+          <div class="partner-item">
+            <img src="{% static 'images/partner-visa.jfif' %}" title="Visa" alt="Visa">
+          </div>
+
+          <div class="partner-item">
+            <img src="{% static 'images/partner-mastercard.png' %}" title="Mastercard" alt="Mastercard">
+          </div>
+
+          <div class="partner-item">
+            <img src="{% static 'images/partner-paypal.png' %}" title="PayPal" alt="PayPal">
+          </div>
+
+          <div class="partner-item">
+            <img src="{% static 'images/partner-stripe.jfif' %}" title="Stripe" alt="Stripe">
+          </div>
+
+          <div class="partner-item">
+            <img src="{% static 'images/partner-skrill.png' %}" title="Skrill" alt="Skrill">
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer Starts Here -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 footer-item">
+        <h4>e-currency Hub</h4>
+        <p>Experience secure, innovative, and reliable banking solutions tailored to your financial needs.</p>
+        <ul class="social-icons">
+          <li><a rel="nofollow" href="https://www.facebook.com/efinancehub" target="_blank"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="https://twitter.com/efinancehub" target="_blank"><i class="fa fa-twitter"></i></a></li>
+          <li><a href="https://www.linkedin.com/company/efinancehub" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+          <li><a href="https://www.instagram.com/efinancehub" target="_blank"><i class="fa fa-instagram"></i></a></li>
+        </ul>
+      </div>
+      <div class="col-md-3 footer-item">
+        <h4>Useful Links</h4>
+        <ul class="menu-list">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Our Services</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3 footer-item">
+        <h4>Additional Pages</h4>
+        <ul class="menu-list">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">How We Work</a></li>
+          <li><a href="#">Contact Support</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3 footer-item last-item">
+        <h4>Contact Us</h4>
+        <div class="contact-form">
+          <form id="contact footer-contact" action="" method="post">
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <fieldset>
+                  <input name="name" type="text" class="form-control" id="name" placeholder="Full Name" required="">
+                </fieldset>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <fieldset>
+                  <input name="email" type="email" class="form-control" id="email" placeholder="E-Mail Address" required="">
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your Message" required=""></textarea>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <button type="submit" id="form-submit" class="filled-button">Send Message</button>
+                </fieldset>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          Copyright &copy; 2024 e-currency Hub. All Rights Reserved.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
     </div>
-    <div class="social-media content">
-        <h2>Follow Us</h2>
-        <a href="https://www.facebook.com" target="_blank">
-            <img src="{% static 'images/facebook.jfif' %}" alt="Facebook">
-        </a>
-        <a href="https://www.twitter.com" target="_blank">
-            <img src="{% static 'images/twitter.jfif' %}" alt="Twitter">
-        </a>
-        <a href="https://www.instagram.com" target="_blank">
-            <img src="{% static 'images/instagram.jfif' %}" alt="Instagram">
-        </a>
-        <a href="https://www.linkedin.com" target="_blank">
-            <img src="{% static 'images/linkden.png' %}" alt="LinkedIn">
-        </a>
-    </div>
-    <div class="scroll-to-top" onclick="scrollToTop()" title="Scroll to Top">
-        &#8593;
-    </div>
-    <div class="footer content">
-        <p>&copy; 2024 Online Banking. All rights reserved.</p>
-    </div>
-    <div class="overlay"></div>
-    <div class="pl">
-        <div class="pl__dot"></div>
-        <div class="pl__dot"></div>
-        <div class="pl__dot"></div>
-        <div class="pl__dot"></div>
-        <div class="pl__dot"></div>
-        <div class="pl__dot"></div>
-        <div class="pl__dot"></div>
-        <div class="pl__dot"></div>
-        <div class="pl__dot"></div>
-        <div class="pl__dot"></div>
-        <div class="pl__dot"></div>
-        <div class="pl__dot"></div>
-        <div class="pl__text">Loading…</div>
-    </div>
-    <script>
- // Function to scroll to the top of the page smoothly
- function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
+    <!-- ***** Preloader End ***** -->
 
-        // Show/hide the scroll-to-top button based on scroll position
-        window.addEventListener('scroll', function() {
-            const scrollButton = document.querySelector('.scroll-to-top');
-            if (window.scrollY > 300) {
-                scrollButton.classList.add('active');
-            } else {
-                scrollButton.classList.remove('active');
-            }
-        });
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-        // Fade-in content on page load
-        window.addEventListener('load', function() {
-            const contentSections = document.querySelectorAll('.content');
-            contentSections.forEach(function(section) {
-                section.style.opacity = '1';
-                section.style.visibility = 'visible';
-            });
-        });      
-        // Function to show the loader and overlay
-function showLoader() {
-    const loader = document.querySelector('.pl');
-    const overlay = document.querySelector('.overlay');
-    loader.classList.add('active');
-    overlay.style.display = 'block'; // Show the overlay
+    <!-- Additional Scripts -->
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/owl.js' %}"></script>
+    <script src="{% static 'js/slick.js' %}"></script>
+    <script src="{% static 'js/accordions.js' %}"></script>
 
-    // Hide the loader and overlay after 5 seconds
-    setTimeout(function() {
-        loader.classList.remove('active');
-        overlay.style.display = 'none'; // Hide the overlay
-    }, 5000); // 5000 milliseconds = 5 seconds
-}
-
-// Function to hide the loader and overlay
-function hideLoader() {
-    const loader = document.querySelector('.pl');
-    const overlay = document.querySelector('.overlay');
-    loader.classList.remove('active');
-    overlay.style.display = 'none';
-}
-
-// Example usage: Show loader when page is loading
-window.addEventListener('load', function() {
-    showLoader(); // Show loader initially
-
-    // Function to display content sections after loader is hidden
-    function displayContentSections() {
-        const contentSections = document.querySelectorAll('.content');
-        contentSections.forEach(function(section) {
-            section.style.opacity = '1';
-            section.style.visibility = 'visible';
-        });
-    }
-
-    // Hide loader and display content sections after 5 seconds
-    setTimeout(function() {
-        hideLoader();
-        displayContentSections();
-    }, 5000); // Ensure this delay matches the initial loader's timeout
-
-    // Example usage: Show loader when a link is clicked
-    document.addEventListener('click', function(event) {
-        const target = event.target.closest('a');
-        if (target && target.href) {
-            event.preventDefault(); // Prevent default navigation behavior
-            showLoader(); // Show loader when a link is clicked
-
-            // Simulate a delay before navigating (1 second in this example)
-            setTimeout(function() {
-                window.location.href = target.href; // Navigate to the link's URL after delay
-            }, 1000); // Adjust the delay as needed (1 second in this example)
-        }
-    });
-});
+    <script language = "text/Javascript">
+      cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+      function clearField(t){                   //declaring the array outside of the
+      if(! cleared[t.id]){                      // function makes it static and global
+          cleared[t.id] = 1;  // you could use true and false, but that's more typing
+          t.value='';         // with more chance of typos
+          t.style.color='#fff';
+          }
+      }
 
     </script>
-    
-</body>
+
+  </body>
 </html>

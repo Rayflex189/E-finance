@@ -1,0 +1,569 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Currency Hub - Crypto Transfer</title>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/69cd13b1d746a31c382e1abc/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+
+    <link rel="icon" href="{% static 'images/web_logo.jpg' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/dash.css' %}" >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a3a6c;
+            --secondary-color: #2c5aa0;
+            --accent-color: #4a7bc8;
+            --bg-color: #f0f4f8;
+            --card-color: #fff;
+            --text-color: #333;
+        }
+
+        /* Basic Styling */
+        body {
+            font-family: "Nanum Gothic", Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Styling for the error messages */
+        .errors {
+            color: red;
+            padding: 10px;
+            font-weight: bold;
+            animation: vibrate 0.5s ease-in-out;
+        }
+
+        /* Header */
+        .bank-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .bank-header h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            padding-left: 20px;
+            font-weight: bold;
+        }
+        .notification-bell, .open-sidebar-btn {
+            cursor: pointer;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: var(--primary-color);
+            position: fixed;
+            right: -250px;
+            top: 0;
+            transition: right 0.4s ease;
+            color: #fff;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+        .sidebar.open {
+            right: 0;
+        }
+        .sidebar-header, .user-details, .sidebar ul li {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--secondary-color);
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+        .sidebar ul li a:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Centered Main Content */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 20px;
+        }
+
+        /* Transfer Section */
+        .transfer-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            font-weight: bold;
+        }
+        .transfer-form {
+            background-color: var(--card-color);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            border: 1px solid #e0e0e0;
+        }
+        .transfer-form label {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        .transfer-form input, .transfer-form select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .transfer-form button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .transfer-form button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Bottom Navbar */
+        .bottom-navbar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: var(--card-color);
+            color: var(--primary-color);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            border-top: 1px solid #e0e0e0;
+        }
+        .nav-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .nav-item i {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        /* Focus effect */
+        input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 5px rgba(74, 123, 200, 0.5);
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            background: var(--card-color);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            color: var(--text-color);
+            animation: slideIn 1s ease-out;
+            border: 1px solid #e0e0e0;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .form-container h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .animated-balance {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: var(--primary-color);
+        }
+
+        .form-input-group {
+            position: relative;
+        }
+
+        .form-input-group .input-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .marquee {
+            background-color: var(--primary-color);
+            color: #fff;
+            font-weight: bold;
+            padding: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: scrollLeft 10s linear infinite;
+        }
+
+        @keyframes scrollLeft {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        .telegram-icon {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #0088cc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            transition: transform 0.3s;
+            z-index: 1000;
+        }
+
+        .telegram-icon:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .telegram-icon img {
+            width: 35px;
+            height: 35px;
+        }
+
+        .account-status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .account-active {
+            background-color: #e0ffe0;
+            color: #2d5016;
+            border: 1px solid #c8e6c9;
+        }
+
+        .account-inactive {
+            background-color: #ffe0e0;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .crypto-option {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+
+        .crypto-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="telegram-icon" id="telegramBtn">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+    </div>
+
+    <!-- Bank Header -->
+    <header class="bank-header">
+        <h1>E-Currency Hub - Crypto Transfer</h1>
+        <div class="notification-bell" onclick="toggleSidebar()">
+            <i class="fas fa-bell"></i>
+        </div>
+        <div class="open-sidebar-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2>Account Menu</h2>
+            <button onclick="toggleSidebar()">Close</button>
+        </div>
+        <div class="user-details">
+            <p>Username: <strong>{{ request.user }}</strong></p>
+            <p>Email: <strong>{{ user_profile.email }}</strong></p>
+        </div>
+        <ul>
+            <li><a href="{% url 'profile_setting' %}">Profile</a></li>
+            <li><a href="{% url 'reset_setting' %}">Settings</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Marquee for Stock Market -->
+    <div class="marquee">
+        <div class="marquee-content" id="stockMarquee">
+            Loading stock market data...
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="transfer-header">Blockchain Payment</div>
+
+        <div class="form-container">
+            <h1>E-Currency Hub Pay</h1>
+
+            <!-- Animated Balance -->
+            <div class="animated-balance" id="animatedBalance">
+                Loading available balance...
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- Wallet Address -->
+                <div class="mb-3">
+                    <label for="walletAddress" class="form-label">Wallet Address</label>
+                    <div class="form-input-group">
+                        <input type="text" class="form-input" id="walletAddress" name="wallet_address" placeholder="Enter wallet address">
+                        <i class="fas fa-wallet input-icon"></i>
+                    </div>
+                </div>
+
+                <!-- Cryptocurrency -->
+                <div class="mb-3">
+                    <label for="cryptoType" class="form-label">Cryptocurrency</label>
+                    <select class="form-input" id="cryptoType" name="crypto_type">
+                        <option value="BTC">Bitcoin (BTC)</option>
+                        <option value="ETH">Ethereum (ETH)</option>
+                        <option value="USDT">Tether (USDT)</option>
+                    </select>
+                </div>
+
+                <!-- Amount -->
+                <div class="mb-3">
+                    <label for="amount" class="form-label">Amount</label>
+                    <div class="form-input-group">
+                        {{ form.deposit_amount }}
+                        <i class="fas fa-dollar-sign input-icon"></i>
+                    </div>
+                </div>
+
+                <!-- Transaction Note -->
+                <div class="mb-3">
+                    <label for="note" class="form-label">Transaction Note</label>
+                    <div class="form-input-group">
+                        <input type="text" class="form-input" id="note" name="note" placeholder="Enter transaction note">
+                        <i class="fas fa-sticky-note input-icon"></i>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Submit</button>
+                <div class="errors">{{form.errors}}</div>
+            </form>
+
+            <!-- Account Status -->
+            <div class="account-status {% if user_profile.is_linked %}account-active{% else %}account-inactive{% endif %}">
+                {% if user_profile.is_linked %}
+                    <p>Your account is activated. You can proceed with transactions.</p>
+                {% else %}
+                    <p>Your account is not activated. Please purchase an activation pin.</p>
+                    <a href="{% url 'linking_view' %}" class="btn btn-primary mt-2">Activate Account</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-navbar">
+        <div class="nav-item">
+            <a href="{% url 'dashboard' %}">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="{% url 'crypto' %}">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Transfer</span>
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="#">
+                <i class="fas fa-chart-line"></i>
+                <span>Overview</span>
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="{% url 'profile_setting' %}">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // Update available balance dynamically using Django variables
+        document.addEventListener("DOMContentLoaded", () => {
+            const balanceElement = document.getElementById("animatedBalance");
+            const userCurrency = "{{ user_profile.currency }}";
+            const userBalance = "{{ user_profile.balance|intcomma }}";
+
+            // Update balance
+            balanceElement.textContent = `Current available balance (${userCurrency}): ${userBalance}`;
+        });
+
+        // Mock API Data for stocks
+        const stockData = [
+            { symbol: "AAPL", price: 178.23 },
+            { symbol: "GOOGL", price: 123.45 },
+            { symbol: "AMZN", price: 99.12 },
+            { symbol: "TSLA", price: 246.78 }
+        ];
+
+        // Update stock marquee dynamically
+        function updateStockMarquee() {
+            const marquee = document.getElementById("stockMarquee");
+            const stockText = stockData.map(stock => `${stock.symbol}: $${stock.price.toFixed(2)}`).join(" | ");
+            marquee.innerHTML = stockText;
+        }
+
+        // Call functions after the DOM is loaded
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(updateStockMarquee, 1000);
+        });
+
+        document.getElementById("telegramBtn").addEventListener("click", function() {
+            window.open("https://t.me/paymentfinancialsupport147");
+        });
+    </script>
+</body>
+</html>

@@ -5,125 +5,452 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+    <title>User Profile - E-Currency Hub</title>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/69cd13b1d746a31c382e1abc/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #1a3a6c;
+            --secondary-color: #2c5aa0;
+            --accent-color: #4a7bc8;
+            --success-color: #10b981;
+            --card-color: #fff;
+            --text-color: #333;
+            --bg-color: #f0f4f8;
+        }
+
         body {
-            background-color: #e9f5e9; /* Light green background */
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
         }
+
         .navbar {
-            background-color: #28a745; /* Green color for navbar */
+            background-color: var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
+
+        .translate-icon-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .translate-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .translate-icon i {
+            color: white;
+            font-size: 22px;
+        }
+
+        .translate-icon:hover {
+            transform: translateY(-5px);
+            background-color: var(--secondary-color);
+        }
+
         .navbar-brand {
             color: #fff;
+            font-weight: bold;
+            font-size: 1.5rem;
         }
+
         .navbar-brand:hover {
             color: #fff;
         }
+
         .container {
-            margin-top: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
         }
+
         .profile-img {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
-            border: 4px solid #28a745; /* Green border for profile image */
+            border: 4px solid var(--accent-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            object-fit: cover;
         }
+
         .card {
-            background-color: #fff;
-            border: 1px solid #ddd;
+            background-color: var(--card-color);
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
         .card-header {
-            background-color: #28a745; /* Green color for card header */
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: #fff;
+            border-bottom: none;
+            padding: 20px;
+            position: relative;
         }
+
+        .card-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent-color), transparent);
+        }
+
         .card-title {
-            color: #28a745;
+            color: #fff;
+            margin: 0;
+            font-weight: 600;
+            font-size: 1.3rem;
         }
+
         .details-section p {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 1rem;
         }
+
+        .details-section p:last-child {
+            border-bottom: none;
+        }
+
         .details-section p strong {
-            color: #28a745;
+            color: var(--primary-color);
+            font-weight: 600;
+            min-width: 150px;
+            display: inline-block;
         }
+
         .btn-custom {
-            background-color: #28a745;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: #fff;
             border: none;
+            border-radius: 8px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(26, 58, 108, 0.3);
         }
+
         .btn-custom:hover {
-            background-color: #218838;
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 58, 108, 0.4);
+            color: #fff;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #c82333, #bd2130);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            background: var(--card-color);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-info {
+            margin-left: 25px;
+        }
+
+        .profile-name {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .profile-email {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .account-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--success-color), #34d399);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .balance-display {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .balance-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .balance-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .account-number {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .account-number strong {
+            color: var(--primary-color);
+        }
+
+        .action-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 25px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-info {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+
+            .profile-name {
+                font-size: 1.7rem;
+            }
+
+            .balance-amount {
+                font-size: 2rem;
+            }
+
+            .details-section p strong {
+                min-width: 120px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                margin-top: 15px;
+            }
+
+            .profile-img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .btn-custom, .btn-danger {
+                width: 100%;
+                margin-bottom: 10px;
+            }
         }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="#">User Profile</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'dashboard' %}">Home</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<div class="container">
-    <div class="card">
-        <div class="card-header">
-            <h5 class="card-title">User Profile</h5>
+    <div class="translate-icon-container">
+        <div id="translate-icon" class="translate-icon">
+            <i class="fas fa-language"></i>
+            <div id="google_translate_element"></div>
         </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-4 text-center">
-                    <img src="{{user_profile.profile_pic.url}}" class="profile-img" alt="Profile Picture">
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-university mr-2"></i>E-Currency Hub
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard' %}">
+                        <i class="fas fa-home mr-1"></i>Home
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="profile-image">
+                <img src="{{user_profile.profile_pic.url}}" class="profile-img" alt="Profile Picture">
+            </div>
+            <div class="profile-info">
+                <h1 class="profile-name">{{user_profile.first_name}} {{user_profile.middle_name}} {{user_profile.last_name}}</h1>
+                <p class="profile-email">{{user_profile.email}}</p>
+                <span class="account-badge">
+                    <i class="fas fa-badge-check mr-1"></i>{{user_profile.account_type}} Account
+                </span>
+            </div>
+        </div>
+
+        <!-- Balance Display -->
+        <div class="balance-display">
+            <div class="balance-label">Current Balance</div>
+            <div class="balance-amount">{{user_profile.currency}}{{user_profile.balance|intcomma}}</div>
+        </div>
+
+        <!-- Account Information Card -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title"><i class="fas fa-user-circle mr-2"></i>Account Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="account-number">
+                    <strong>Account Number:</strong> {{user_profile.account_number}}
                 </div>
-                <div class="col-md-8 details-section">
-                    <p><strong>Name:</strong> {{user_profile.first_name}} {{user_profile.middle_name}} {{user_profile.last_name}}</p>
-                    <p><strong>Email:</strong> {{user_profile.email}}</p>
-                    <p><strong>Phone:</strong> +{{user_profile.phone_number}}</p>
-                    <p><strong>Account Number:</strong> {{user_profile.account_number}}</p>
-                    <p><strong>Status:</strong> {{user_profile.status}}</p>
+                <div class="details-section">
+                    <p><strong>Full Name:</strong> {{user_profile.first_name}} {{user_profile.middle_name}} {{user_profile.last_name}}</p>
+                    <p><strong>Email Address:</strong> {{user_profile.email}}</p>
+                    <p><strong>Phone Number:</strong> +{{user_profile.phone_number}}</p>
+                    <p><strong>Account Status:</strong>
+                        <span class="badge {% if user_profile.status == 'Active' %}badge-success{% else %}badge-warning{% endif %}">
+                            {{user_profile.status}}
+                        </span>
+                    </p>
                     <p><strong>Account Type:</strong> {{user_profile.account_type}}</p>
-                    <p><strong>Balance:</strong> {{user_profile.currency}}{{user_profile.balance|intcomma}}</p>
                     <p><strong>Country:</strong> {{user_profile.country}}</p>
                     <p><strong>Gender:</strong> {{user_profile.Gender}}</p>
                 </div>
             </div>
-            <div class="text-center mt-4">
-                <a href="{% url 'reset_setting' %}" class="btn btn-custom">Edit Profile</a>
+        </div>
+
+        <!-- Profile Management Card -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title"><i class="fas fa-edit mr-2"></i>Profile Management</h5>
+            </div>
+            <div class="card-body">
+                <p>Update your personal information, contact details, and account preferences.</p>
+                <div class="text-center mt-4">
+                    <a href="{% url 'reset_setting' %}" class="btn btn-custom">
+                        <i class="fas fa-user-edit mr-2"></i>Edit Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Card -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title"><i class="fas fa-shield-alt mr-2"></i>Account Security</h5>
+            </div>
+            <div class="card-body">
+                <p>Secure your account and manage your login preferences.</p>
+                <div class="action-section">
+                    <p class="text-center mb-4">Are you sure you want to logout?</p>
+                    <div class="text-center">
+                        <a href="{% url 'logout' %}" class="btn btn-danger">
+                            <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Profile Edit Card -->
-    <div class="card mt-4">
-        <div class="card-header">
-            <h5 class="card-title">Profile Edit</h5>
-        </div>
-        <div class="card-body">
-            <p>You can edit your profile details here.</p>
-            <a href="{% url 'reset_setting' %}" class="btn btn-custom">Edit Profile</a>
-        </div>
-    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- Logout Card -->
-    <div class="card mt-4">
-        <div class="card-header">
-            <h5 class="card-title">Logout</h5>
-        </div>
-        <div class="card-body">
-            <p>Are you sure you want to logout?</p>
-            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
-        </div>
-    </div>
-</div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {pageLanguage: 'en'},
+                'google_translate_element'
+            );
+        }
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        // Translate icon animation
+        const translateIcon = document.getElementById('translate-icon');
+        translateIcon.addEventListener('mouseover', () => {
+            translateIcon.style.transform = 'translateY(-5px)';
+        });
+        translateIcon.addEventListener('mouseleave', () => {
+            translateIcon.style.transform = 'translateY(0)';
+        });
+    </script>
+
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

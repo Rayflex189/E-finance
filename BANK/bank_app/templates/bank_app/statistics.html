@@ -4,15 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-finannce Hub</title>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/69cd13b1d746a31c382e1abc/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         /* Your existing CSS styles */
         body {
-            background-color: #f8f9fa;
+             background: linear-gradient(135deg, green, navy);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
+
+    .translate-icon-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+.translate-icon {
+    width: 40px;
+    height: 40px;
+    background-image: url('path_to_google_translate_icon.png');
+    background-size: cover;
+    cursor: pointer;
+}
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}
+
         .navbar {
             background-color: #28a745; /* Green color for the navbar */
         }
@@ -44,43 +81,48 @@
     </style>
 </head>
 <body>
-
+<div class="translate-icon-container">
+    <div id="translate-icon" class="translate-icon"><div id="google_translate_element"></div> </div>
+</div>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="#">E-finannce Hub</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#home">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#accounts">Accounts</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#loans">Loans</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#settings">Settings</a>
-            </li>
-          </ul>
+   <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'profile_setting' %}">Accounts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'loans' %}">Loans</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'reset_setting' %}">Settings</a>
+      </li>
+      <li class="nav-item">
+      <a href="{% url 'linking_view' %}" class="nav-link">Link Account</a>
+    </li>
+    </ul>
           <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="https://via.placeholder.com/40" class="profile-img" alt="Profile Picture">
               </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Profile</a>
-                <a class="dropdown-item" href="#">Settings</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Logout</a>
-              </div>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'profile_setting' %}">Profile</a>
+          <a class="dropdown-item" href="{% url 'reset_setting' %}">Settings</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+        </div>
             </li>
           </ul>
         </div>
       </nav>
-      
+
 
 <!-- Modals for Deposit, Withdrawal, PayPal, Bank Transfer, Crypto - Existing Modals -->
 
@@ -144,6 +186,26 @@
             document.querySelector('.no-data-animation span').style.opacity = '1';
         }
     });
-</script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {pageLanguage: 'en'},
+                'google_translate_element'
+            );
+        }
+        // Get the translate icon element
+const translateIcon = document.getElementById('translate-icon');
+
+// Add bounce animation
+translateIcon.addEventListener('mouseover', () => {
+    translateIcon.style.animation = 'bounce 0.5s infinite alternate';
+});
+
+// Reset animation when mouse leaves
+translateIcon.addEventListener('mouseleave', () => {
+    translateIcon.style.animation = '';
+});
+
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

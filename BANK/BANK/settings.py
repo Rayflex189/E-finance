@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-4rd#l1#43)5*ebjwuix9)m+tzvb282c^!s%*0y8j0farxs+u6s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['efinancebh.pythonanywhere.com']
 
 
 # Application definition
@@ -75,13 +75,18 @@ WSGI_APPLICATION = 'BANK.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'OPTIONS': {
+            'timeout': 20,  # Increase timeout (in seconds)
+        },
+    },
 }
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -126,11 +131,20 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Additional locations of static files
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    # Add more directories if needed
+    os.path.join(BASE_DIR, 'static', 'assets'),
+    os.path.join(BASE_DIR, 'static', 'js'),
+    os.path.join(BASE_DIR, 'static', 'images'),
+    os.path.join(BASE_DIR, 'static', 'assets', 'css'),
+    os.path.join(BASE_DIR, 'static', 'assets', 'fonts'),
+    os.path.join(BASE_DIR, 'static', 'vendor'),
+    os.path.join(BASE_DIR, 'static', 'vendor', 'bootstrap'),
+    os.path.join(BASE_DIR, 'static', 'vendor', 'bootstrap', 'css'),
+    os.path.join(BASE_DIR, 'static', 'vendor', 'bootstrap', 'js'),
+    os.path.join(BASE_DIR, 'static', 'vendor', 'jquery'),# Add more directories if needed
 ]
 
 # Directory where Django will collect static files for deployment
-STATIC_ROOT = '/home/heritageonlinebank1/heritage/HCIP/staticfiles/'
+STATIC_ROOT = '/home/EfinanceBH/E-finance/BANK/staticfiles/'
 
 MEDIA_URL = '/images/'
 
